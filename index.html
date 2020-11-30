@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <title>Vue.js API</title>
+</head>
+<body>
+
+<div id="app" class="container">
+    <h1>Api com vue.js</h1>
+
+    <button v-on:click="trataClique">Mais uma frase.</button>
+
+    <ul>
+<li v-for="frase in lista">{{ frase }}</li>
+
+    </ul>
+
+</div>
+
+<script>
+
+var app = new Vue({
+
+    el: '#app',
+    data: {
+        lista: []
+    },
+    methods: {
+        trataClique: function(){
+
+            fetch('https://api.chucknorris.io/jokes/random')
+                .then( (resposta) => resposta.json() )
+                .then( (objetoFrase) =>{
+                    
+
+                var frase = objetoFrase.value;
+                this.lista.push(frase);
+                });
+
+                
+        }
+    },
+    created: function(){
+        this.trataClique();
+    }
+
+});
+
+
+</script>
+    
+</body>
+</html>
